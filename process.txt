@@ -1,4 +1,33 @@
+Frontend
+--------
 1. Create an account in appwrite
 2. npm create vite@latest ./ 
    click on react and typescript in the drop down list that would be shown. -> creates a vite+react app at current repository 
-  
+   npm install
+   npm run dev
+3. move the assets from src to public
+4. delete unnecessary files
+5. create a new file in src folder named App.tsx
+6.  Setting the tailwind
+   create a new file named globals.css and add tailwind directives there
+   configure the tailwind path
+   import globals.css in app.tsx
+   update the tailwind.config.js 
+   npm install -D tailwindcss-animate
+   close the server
+   run again
+   add the necessary class names to get the css styling
+7. Setting the routes
+   npm install react-router-dom
+   import {BrowserRouter} from react-router-dom in main.tsx
+   wrap the app with BrowserRouter in main
+   in app, import {routes, route} and add routes
+8. folder structure
+   create _auth and _root in src
+   in _auth, another folder forms that contains signin and signup forms
+   _auth also contains a file AuthLayout to wrap the forms and other design in a single page
+   _root contains dashboard and other main pages
+   since there would be many pages to display, rather than importing each one of them in the app page , we create a file in pages name index.ts and write code as export {default as Home} from './Home' along with other pages to import it in a single line.
+   in app.tsx it would look like this import {Home, page1, page2
+   } from './_root/pages'
+
