@@ -1,0 +1,4 @@
+1. Create an account in appwrite
+2. npm create vite@latest ./ 
+   click on react and typescript in the drop down list that would be shown. -> creates a vite+react app at current repository 
+  
