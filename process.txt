@@ -30,4 +30,7 @@ Frontend
    since there would be many pages to display, rather than importing each one of them in the app page , we create a file in pages name index.ts and write code as export {default as Home} from './Home' along with other pages to import it in a single line.
    in app.tsx it would look like this import {Home, page1, page2
    } from './_root/pages'
+9. Shad cn ui 
+   follow their documentation
+   npx various components and use accordingly
 
