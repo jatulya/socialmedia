@@ -1,8 +1,7 @@
-import { Button } from "@/components/ui/button"
 const RootLayout = () => {
   return (
     <div>
-      <Button>click here</Button>
+      RootLayout
     </div>
   )
 }

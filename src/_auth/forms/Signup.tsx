@@ -1,9 +1,9 @@
-import React from 'react'
+import { Button } from "@/components/ui/button"
 
 const Signup = () => {
   return (
     <div>
-      sigup
+      <Button>Sign up</Button>
     </div>
   )
 }

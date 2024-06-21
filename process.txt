@@ -33,4 +33,5 @@ Frontend
 9. Shad cn ui 
    follow their documentation
    npx various components and use accordingly
-
+10. set up AuthLayout
+   import outlet and navigate from dom
