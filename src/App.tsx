@@ -26,3 +26,10 @@ const App = () => {
 }
 
 export default App
+
+/* nesting routing wraps the child components inside the parent component (eg: signup and signin in authlayout)
+
+index element = {<Home/>} => when the url matches the home url (url = '/'), the RootLayout is rendered with home as child component 
+
+rendering should be done using outlet in the code of the component to specify the position of the cop
+ */

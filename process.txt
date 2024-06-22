@@ -35,3 +35,11 @@ Frontend
    npx various components and use accordingly
 10. set up AuthLayout
    import outlet and navigate from dom
+   set up the outlet code at AuthLayout
+11. creating form
+   follow shadcn documentation
+   npx shadcn input
+   in the folder lib, create a folder named validation and in it, create a file named schema.ts to define the schema of all the forms required
+
+   import * as z from "zod"
+   paste the basic form schema (const formSchema) from shadcn and add necessary fields
