@@ -249,6 +249,9 @@
 @layer components {
   /* SHADCN COMPONENTS */
   /* Form */
+  .form {
+    @apply flex flex-col gap-4;
+  }
   .shad-form_label {
     @apply bg-black !important;
   }
@@ -258,7 +261,7 @@
   }
 
   .shad-input {
-    @apply h-12 bg-dark-4 border-none placeholder:bg-black focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-12 bg-dark-4 border-none placeholder:bg-transparent focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
 
   .shad-textarea {
