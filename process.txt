@@ -43,3 +43,6 @@ Frontend
 
    import * as z from "zod"
    paste the basic form schema (const formSchema) from shadcn and add necessary fields
+   make necessary changes in form
+   take custom loader from uiball.com (do the installations and stuff)
+   we create a folder named Shared to keep the components that will be shared by more than one components
