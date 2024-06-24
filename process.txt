@@ -39,10 +39,24 @@ Frontend
 11. creating form
    follow shadcn documentation
    npx shadcn input
-   in the folder lib, create a folder named validation and in it, create a file named schema.ts to define the schema of all the forms required
-
+   in the folder lib, create a folder named validation and in it, create a file named schema.ts to 
+   define the schema of all the forms required
    import * as z from "zod"
    paste the basic form schema (const formSchema) from shadcn and add necessary fields
    make necessary changes in form
    take custom loader from uiball.com (do the installations and stuff)
    we create a folder named Shared to keep the components that will be shared by more than one components
+12. .env
+   create .enc.local in main folder to keep secret keys outside src
+   inside src, create a file named vite-env.d.ts and add /// <reference types= "vite/client" />
+13. authentication
+   npm install appwrite
+   create src - types - interfaces.ts and create the interfaces there
+   create lib - appwrite - config.ts
+   import necessary stuff from appwrite and configure the project
+   create lib - appwrite -api.ts
+   define functions for account creation and others using interfaces.ts types and appwrite functionalities (read documentation of appwrite)
+
+loader -> uiball.com
+cover -> canva
+logo -> logo.com

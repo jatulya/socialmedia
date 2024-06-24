@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 //form imports
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel,FormMessage} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel,FormMessage} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { SignupValidation } from "@/lib/validation/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -33,7 +33,7 @@ const Signin = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/books51.jpg" alt="logo"/>
+        <img src="/assets/logo.png" alt="logo"/>
 
         <p className="text-light-3 small-medium md:base-regular">
           To get access to my social media page, u gotta enter ur secret info brethren!!

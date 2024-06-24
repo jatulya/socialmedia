@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Loader from "@/components/shared/Loader"
+import { createUserAcc } from "@/lib/appwrite/api"
 
 const Signup = () => {
   // 1. Define your form.
@@ -22,20 +23,19 @@ const Signup = () => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof SignupValidation>) {
+    const newUser = await createUserAcc(values)
+    console.log(newUser)
   }
 
-  const isLoading = true
+  const isLoading = false
 
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/books51.jpg" alt="logo"/>
+        <img src="/assets/logo.png" alt="logo"/>
 
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-8">
           Create a new account
         </h2>      
 
