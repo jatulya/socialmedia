@@ -56,6 +56,25 @@ Frontend
    import necessary stuff from appwrite and configure the project
    create lib - appwrite -api.ts
    define functions for account creation and others using interfaces.ts types and appwrite functionalities (read documentation of appwrite)
+14. create collections and buckets in appwrite and    get their ids
+   add the attributes and Relationship between them
+   create index for posts
+15. update the signup functions so that they add info about user to the db
+
+
+
+Relationship between collections
+--------------------------------
+- Users -> Posts :
+    creator -> posts : one to many => creators can have many posts but post can have only one creator
+    liked -> likes : many to many => users can like m many posts and posts can be liked by many users
+- Users -> Saves
+- Users -> Posts
+
+attributes
+..........
+- Users : posts, liked, name, username, accountID, email, bio, imageID, imageURL
+- Posts : creator, likes, caption, Tags, imageID, imageURL, Location
 
 loader -> uiball.com
 cover -> canva
