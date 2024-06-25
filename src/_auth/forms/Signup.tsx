@@ -10,7 +10,12 @@ import { z } from "zod"
 import Loader from "@/components/shared/Loader"
 import { createUserAcc } from "@/lib/appwrite/api"
 
+//toast
+import { useToast } from "@/components/ui/use-toast"
+
 const Signup = () => {
+  const { toast } = useToast()
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -25,7 +30,13 @@ const Signup = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     const newUser = await createUserAcc(values)
-    console.log(newUser)
+    
+    if(!newUser) {
+      return toast ({title : "Sign up failed. Please try again later"})
+    }
+
+    //const session = await signInAcc()
+
   }
 
   const isLoading = false

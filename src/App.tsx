@@ -1,11 +1,14 @@
-import { Route, Routes } from 'react-router-dom'
-
 import './globals.css'
+
+import { Route, Routes } from 'react-router-dom'
 import Signin from './_auth/forms/Signin'
 import Signup from './_auth/forms/Signup'
 import {Home} from './_root/pages'
 import AuthLayout from './_auth/AuthLayout'
 import RootLayout from './_root/RootLayout'
+
+//toast
+import { Toaster } from "@/components/ui/toaster"
 
 const App = () => {
   return (
@@ -21,6 +24,8 @@ const App = () => {
           <Route index element={<Home />} /> {/* index => default child route */}
         </Route>
       </Routes>
+
+      <Toaster />
     </main>
   )
 }

@@ -60,6 +60,9 @@ Frontend
    add the attributes and Relationship between them
    create index for posts
 15. update the signup functions so that they add info about user to the db
+16. Toast from shadcn
+   add the import toaster to the root component (here, app.tsx)
+   import use-toast wherever required
 
 
 
