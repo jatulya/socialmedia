@@ -8,13 +8,18 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Loader from "@/components/shared/Loader"
-import { createUserAcc } from "@/lib/appwrite/api"
 
 //toast
 import { useToast } from "@/components/ui/use-toast"
+import { useCreateUserAcc, useSigninAcc } from "@/lib/react-query/queries"
 
 const Signup = () => {
   const { toast } = useToast()
+
+  const {mutateAsync: createUserAcc, isLoading: isCreatingUser} = useCreateUserAcc()
+  //mutateAsync -> function returned by the account mutation function that triggers the mutation which is renamed to createUserAcc(this createU.. is just the same fnc name as the one in api, but in the queries we call this fnc)
+
+  const {mutateAsync: signInAcc, isLoading: isSigningIn} = useSigninAcc()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -29,17 +34,20 @@ const Signup = () => {
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    const newUser = await createUserAcc(values)
-    
+    const newUser = await createUserAcc(values)   
     if(!newUser) {
       return toast ({title : "Sign up failed. Please try again later"})
     }
 
-    //const session = await signInAcc()
-
+    const session = await signInAcc({
+      email: values.email,
+      password: values.password,
+    })
+    if(!session) {
+      return toast ({title : "Sign in failed. Please try again later"})
+    }
   }
 
-  const isLoading = false
 
   return (
     <Form {...form}>
@@ -69,9 +77,7 @@ const Signup = () => {
                     {...field} 
                   />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+                <FormDescription>This is your public display name.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -137,7 +143,7 @@ const Signup = () => {
           <Button 
             type="submit"
             className="shad-button_primary">
-              {isLoading ? (
+              {isCreatingUser ? (
                 <div className="flex-center gap-2">
                   <Loader/> Loading...
                 </div>
@@ -146,8 +152,7 @@ const Signup = () => {
 
           <p className="text-small-regular text-light-2 text-center mt-2">
               Already have an account?
-              <Link to='/signin'      
-                className="text-primary-500 text-small-semibold ml-1">
+              <Link to='/signin' className="text-primary-500 text-small-semibold ml-1">
                 Log in
               </Link>             
           </p>

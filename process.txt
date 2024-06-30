@@ -63,7 +63,18 @@ Frontend
 16. Toast from shadcn
    add the import toaster to the root component (here, app.tsx)
    import use-toast wherever required
-
+17. react - query : used for data fetching, caching etc
+   npm install react-query
+   lib -> react-query -> queries.ts
+   queries.ts 
+   import necessary stuff from react-query
+   create createAcc, signinAcc mutations (for sigin, siginAcc has to be defined and imported from api.ts)
+   use them accordingly in signup.tsx
+18. Context
+   src - context - AuthContext.tsx
+   create initial_user and initial_state values
+   create functions to update the states
+   wrap children in AuthContext.provider
 
 
 Relationship between collections
