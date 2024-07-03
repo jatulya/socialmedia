@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 //form imports
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel,FormMessage} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -11,10 +11,14 @@ import Loader from "@/components/shared/Loader"
 
 //toast
 import { useToast } from "@/components/ui/use-toast"
+//usecontext
+import { useUserContext } from "@/context/AuthContext"
 import { useCreateUserAcc, useSigninAcc } from "@/lib/react-query/queries"
 
 const Signup = () => {
   const { toast } = useToast()
+  const nav = useNavigate()
+  const {checkAuthUser, isLoading: isUserLoading} = useUserContext
 
   const {mutateAsync: createUserAcc, isLoading: isCreatingUser} = useCreateUserAcc()
   //mutateAsync -> function returned by the account mutation function that triggers the mutation which is renamed to createUserAcc(this createU.. is just the same fnc name as the one in api, but in the queries we call this fnc)
@@ -43,11 +47,19 @@ const Signup = () => {
       email: values.email,
       password: values.password,
     })
+
     if(!session) {
       return toast ({title : "Sign in failed. Please try again later"})
     }
-  }
 
+    const isLoggedIn = await checkAuthUser()
+    if(isLoggedIn) {
+      form.reset()
+      nav("/")
+    }else{
+      return toast ({title : "Sign in failed. Please try again later"})
+    }
+  }
 
   return (
     <Form {...form}>

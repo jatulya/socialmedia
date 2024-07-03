@@ -75,6 +75,10 @@ Frontend
    create initial_user and initial_state values
    create functions to update the states
    wrap children in AuthContext.provider
+19. authentication of users
+   create a fnctn for checking authentication of users (in AuthContext) by calling getcurruser (function thatshould be defined in api.ts - get current user account from appwriteauth, get all documents from user collections with the id same as current user and then return the first [0])
+   we can destructure the current user taken from getcurruser in checkauth user, but it can cause type problem
+   once user is assigned, setisauthenticated to true, else fals
 
 
 Relationship between collections

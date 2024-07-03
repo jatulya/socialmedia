@@ -1,5 +1,5 @@
 import { INewUser} from "@/types/Interfaces";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 import { account, appwriteConfig, avatar, db } from "./config";
 
 //toast
@@ -59,3 +59,20 @@ export async function signinAcc(user:{email:string, password: string}) {
     }
 }
 
+export async function getCurrUser() {
+    try{
+        const currAccount = await account.get()
+        if (!currAccount) throw Error
+        console.log(currAccount)
+        
+        const users = await db.listDocuments(
+            appwriteConfig.dbId, 
+            appwriteConfig.usersCollectionId,
+            [Query.equal('accountID', currAccount.$id)]
+        )
+        if (!users) throw Error
+        return users.documents[0]
+    } catch(error){
+        console.log(error)
+    }
+}
