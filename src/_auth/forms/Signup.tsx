@@ -12,18 +12,19 @@ import Loader from "@/components/shared/Loader"
 //toast
 import { useToast } from "@/components/ui/use-toast"
 //usecontext
-import { useUserContext } from "@/context/AuthContext"
+import { AuthContext } from "@/context/AuthContext"
 import { useCreateUserAcc, useSigninAcc } from "@/lib/react-query/queries"
+import { useContext } from "react"
 
 const Signup = () => {
   const { toast } = useToast()
   const nav = useNavigate()
-  const {checkAuthUser, isLoading: isUserLoading} = useUserContext
+  const {checkAuthUser, isLoading: isUserLoading} = useContext(AuthContext)
 
-  const {mutateAsync: createUserAcc, isLoading: isCreatingUser} = useCreateUserAcc()
+  const {mutateAsync: createUserAcc, isPending: isCreatingUser} = useCreateUserAcc()
   //mutateAsync -> function returned by the account mutation function that triggers the mutation which is renamed to createUserAcc(this createU.. is just the same fnc name as the one in api, but in the queries we call this fnc)
 
-  const {mutateAsync: signInAcc, isLoading: isSigningIn} = useSigninAcc()
+  const {mutateAsync: signInAcc, isPending: isSigningIn} = useSigninAcc()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({

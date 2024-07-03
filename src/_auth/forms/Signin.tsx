@@ -1,55 +1,82 @@
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 //form imports
 import { Form, FormControl, FormField, FormItem, FormLabel,FormMessage} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { SignupValidation } from "@/lib/validation/schema"
+import { SigninValidation } from "@/lib/validation/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import Loader from "@/components/shared/Loader"
 
+//toast
+import { useToast } from "@/components/ui/use-toast"
+//usecontext
+import { AuthContext } from "@/context/AuthContext"
+import { useSigninAcc } from "@/lib/react-query/queries"
+import { useContext } from "react"
+
 const Signin = () => {
+  const { toast } = useToast()
+  const nav = useNavigate()
+  const {checkAuthUser, isLoading: isUserLoading} = useContext(AuthContext)
+
+  const {mutateAsync: signInAcc} = useSigninAcc()
+
   // 1. Define your form.
-  const form = useForm<z.infer<typeof SignupValidation>>({
-    resolver: zodResolver(SignupValidation),
+  const form = useForm<z.infer<typeof SigninValidation>>({
+    resolver: zodResolver(SigninValidation),
     defaultValues: {
-      name: "",
-      username: "",
       email: "",
       password: "",
     },
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignupValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
-  }
+  async function onSubmit(values: z.infer<typeof SigninValidation>) {
+    const session = await signInAcc({
+      email: values.email,
+      password: values.password,
+    })
 
-  const isLoading = false
+    if(!session) {
+      return toast ({title : "Log in failed. Please try again later"})
+    }
+
+    const isLoggedIn = await checkAuthUser()
+    console.log("isLoggedIn" )
+    if(isLoggedIn) {
+      form.reset()
+      nav("/")
+    }else{
+      return toast ({title : "Authenticated. Log in failed. Please try again later"})
+    }
+  }
 
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/assets/logo.png" alt="logo"/>
+        <img src="/assets/logo.png" alt="logo"/>    
+
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-8">
+          Log into your account
+        </h2> 
 
         <p className="text-light-3 small-medium md:base-regular">
-          To get access to my social media page, u gotta enter ur secret info brethren!!
+          To enter my bookverse, give me ur secret info.
         </p>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="form w-full mt-4">
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input 
-                    type="text" 
-                    placeholder="username" 
+                    type="email" 
+                    placeholder="email" 
                     className="shad-input"
                     {...field} 
                   />
@@ -81,7 +108,7 @@ const Signin = () => {
           <Button 
             type="submit"
             className="shad-button_primary">
-              {isLoading ? (
+              {isUserLoading ? (
                 <div className="flex-center gap-2">
                   <Loader/> Loading...
                 </div>
@@ -90,9 +117,8 @@ const Signin = () => {
 
           <p className="text-small-regular text-light-2 text-center mt-2">
               Don't have an account?
-              <Link to='/signup'      
-                className="text-primary-500 text-small-semibold ml-1">
-                Sign Up
+              <Link to='/signup' className="text-primary-500 text-small-semibold ml-1">
+                Sign up
               </Link>             
           </p>
         </form>

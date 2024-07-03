@@ -1,6 +1,6 @@
 import { getCurrUser } from '@/lib/appwrite/api'
 import { IContextType, IUser } from '@/types/Interfaces'
-import {createContext, useContext, useEffect, useState} from 'react'
+import {createContext, useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export const INITIAL_USER = {
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
     checkAuthUser: async () => false as boolean, // always returns a resolved promise with value which is explicitly specified as boolean
 }
 
-const AuthContext = createContext<IContextType>(INITIAL_STATE)
+export const AuthContext = createContext<IContextType>(INITIAL_STATE)
 
 const AuthProvider = ({children} :{children : React.ReactNode}) => {
     const [user1, setUser] = useState<IUser>(INITIAL_USER)
@@ -73,6 +73,5 @@ const AuthProvider = ({children} :{children : React.ReactNode}) => {
 
 export default AuthProvider
 
-export const useUserContext = useContext(AuthContext)
 
 /* authprovider wraps the context in the children */
