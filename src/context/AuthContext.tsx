@@ -14,7 +14,7 @@ export const INITIAL_USER = {
 }
 
 const INITIAL_STATE = {
-    user1: INITIAL_USER,
+    user: INITIAL_USER,
     isLoading: false,
     isAuthenticated: false,
     setUser: () => {},
@@ -25,7 +25,7 @@ const INITIAL_STATE = {
 export const AuthContext = createContext<IContextType>(INITIAL_STATE)
 
 const AuthProvider = ({children} :{children : React.ReactNode}) => {
-    const [user1, setUser] = useState<IUser>(INITIAL_USER)
+    const [user, setUser] = useState<IUser>(INITIAL_USER)
     const [isLoading, setIsLoading] = useState(false)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const nav = useNavigate()
@@ -63,7 +63,7 @@ const AuthProvider = ({children} :{children : React.ReactNode}) => {
       checkAuthUser()
     },[])
     
-    const value = { user1, setUser, isLoading, isAuthenticated, setIsAuthenticated, checkAuthUser}
+    const value = { user, setUser, isLoading, isAuthenticated, setIsAuthenticated, checkAuthUser}
   return (
     <AuthContext.Provider value={value}>
       {children}

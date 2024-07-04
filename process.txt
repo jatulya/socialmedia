@@ -79,8 +79,9 @@ Frontend
    create a fnctn for checking authentication of users (in AuthContext) by calling getcurruser (function thatshould be defined in api.ts - get current user account from appwriteauth, get all documents from user collections with the id same as current user and then return the first [0])
    we can destructure the current user taken from getcurruser in checkauth user, but it can cause type problem
    once user is assigned, setisauthenticated to true, else fals
-
-
+20. rootlayout
+   create a rootlayout component and wrap all the components in it
+   In topbar, create button for signout. create signout functions in queries and appwrite
 Relationship between collections
 --------------------------------
 - Users -> Posts :

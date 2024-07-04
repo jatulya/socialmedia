@@ -80,6 +80,7 @@ export async function getCurrUser() {
 export async function signoutAcc() {
     try{
         const session = await account.deleteSession("current")
+        console.log(`session: ${session}`)
         return session
     }catch (error){
         console.log(error)
