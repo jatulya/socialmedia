@@ -1,6 +1,6 @@
 import { INewUser } from '@/types/Interfaces'
 import {useInfiniteQuery, useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
-import { createUserAcc, signinAcc } from '../appwrite/api'
+import { createUserAcc, signinAcc, signoutAcc } from '../appwrite/api'
 
 export const useCreateUserAcc = () => {
     return useMutation({
@@ -16,6 +16,11 @@ export const useSigninAcc = () => {
     })
 }
 
+export const useSignoutAcc = () => {
+    return useMutation({
+        mutationFn: () => signoutAcc()
+    })
+}
 /*
 queries --> fetch data  
 mutations -> way to handle creating, updating or deleting data without the use of apis directly on the server 

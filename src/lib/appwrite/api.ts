@@ -76,3 +76,12 @@ export async function getCurrUser() {
         console.log(error)
     }
 }
+
+export async function signoutAcc() {
+    try{
+        const session = await account.deleteSession("current")
+        return session
+    }catch (error){
+        console.log(error)
+    }
+}

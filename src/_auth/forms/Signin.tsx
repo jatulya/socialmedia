@@ -40,7 +40,7 @@ const Signin = () => {
     })
 
     if(!session) {
-      return toast ({title : "Log in failed. Please try again later"})
+      return toast ({title : "Session not created. Log in failed. Please try again later"})
     }
 
     const isLoggedIn = await checkAuthUser()
