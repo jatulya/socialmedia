@@ -42,7 +42,6 @@ const Signin = () => {
     if(!session) {
       return toast ({title : "Session not created. Log in failed. Please try again later"})
     }
-
     const isLoggedIn = await checkAuthUser()
     console.log("isLoggedIn" )
     if(isLoggedIn) {

@@ -17,8 +17,9 @@ export const useSigninAcc = () => {
 }
 
 export const useSignoutAcc = () => {
+    console.log("entered queries")
     return useMutation({
-        mutationFn: () => signoutAcc()
+        mutationFn: signoutAcc
     })
 }
 /*

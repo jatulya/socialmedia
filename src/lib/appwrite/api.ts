@@ -1,6 +1,7 @@
 import { INewUser} from "@/types/Interfaces";
 import { ID, Query } from "appwrite";
 import { account, appwriteConfig, avatar, db } from "./config";
+import { error } from "console";
 
 //toast
 
@@ -79,6 +80,7 @@ export async function getCurrUser() {
 
 export async function signoutAcc() {
     try{
+       
         const session = await account.deleteSession("current")
         console.log(`session: ${session}`)
         return session
