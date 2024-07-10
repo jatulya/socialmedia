@@ -46,3 +46,4 @@ index element = {<Home/>} => when the url matches the home url (url = '/'), the 
 
 rendering should be done using outlet in the code of the component to specify the position of the cop
  */
+hbhjb
