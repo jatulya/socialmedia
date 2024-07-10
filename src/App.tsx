@@ -3,12 +3,13 @@ import './globals.css'
 import { Route, Routes } from 'react-router-dom'
 import Signin from './_auth/forms/Signin'
 import Signup from './_auth/forms/Signup'
-import {Home} from './_root/pages'
+import {Home, sidebarLinks} from './_root/pages'
 import AuthLayout from './_auth/AuthLayout'
 import RootLayout from './_root/RootLayout'
 
 //toast
 import { Toaster } from "@/components/ui/toaster"
+import { INavLink } from './types/Interfaces'
 
 const App = () => {
   return (
@@ -22,6 +23,13 @@ const App = () => {
         {/* private routes - seen after signin*/}
         <Route element={<RootLayout/>}>
           <Route index element={<Home />} /> {/* index => default child route */}
+          {sidebarLinks.map((link:INavLink) => {
+            return (
+              <Route key={link.route} 
+                path={link.route} 
+                element={<link.label />} />
+            )
+          })}
         </Route>
       </Routes>
 
@@ -29,7 +37,7 @@ const App = () => {
     </main>
   )
 }
-
+ vsvjsjv
 export default App
 
 /* nesting routing wraps the child components inside the parent component (eg: signup and signin in authlayout)
