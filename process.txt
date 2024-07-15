@@ -82,6 +82,10 @@ Frontend
 20. rootlayout
    create a rootlayout component and wrap all the components in it
    In topbar, create button for signout. create signout functions in queries and appwrite
+21. Wrap components in rootlayout and create profile, updateposts, explore etc in _root/pages. import it as {default as Name } in index.ts so that all the pages can be imported in a single line
+22. Create posts
+
+
 Relationship between collections
 --------------------------------
 - Users -> Posts :

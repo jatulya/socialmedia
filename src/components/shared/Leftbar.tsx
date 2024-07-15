@@ -66,7 +66,7 @@ const Leftbar = () => {
         <Button variant="ghost"
           className='shad-button_ghost' 
           onClick={() => {signout()}}>
-              <img src="/assets/logout.png" alt="logout" />
+              <img src='/assets/icons/logout.png' alt="Logout" />
               <p className='small-medium lg:base-medium'>Logout</p>
         </Button>
       </div>
