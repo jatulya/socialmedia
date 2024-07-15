@@ -3,13 +3,14 @@ import './globals.css'
 import { Route, Routes } from 'react-router-dom'
 import Signin from './_auth/forms/Signin'
 import Signup from './_auth/forms/Signup'
-import {Home, sidebarLinks} from './_root/pages'
+import { Home, Explore, Saved, CreatePost,
+  Profile, EditPost, PostDetails, UpdateProfile, AllUsers,
+} from "@/_root/pages";
 import AuthLayout from './_auth/AuthLayout'
 import RootLayout from './_root/RootLayout'
 
 //toast
 import { Toaster } from "@/components/ui/toaster"
-import { INavLink } from './types/Interfaces'
 
 const App = () => {
   return (
@@ -21,15 +22,16 @@ const App = () => {
           <Route path='/signup' element={<Signup />} />
         </Route>
         {/* private routes - seen after signin*/}
-        <Route element={<RootLayout/>}>
-          <Route index element={<Home />} /> {/* index => default child route */}
-          {sidebarLinks.map((link:INavLink) => {
-            return (
-              <Route key={link.route} 
-                path={link.route} 
-                element={<link.label />} />
-            )
-          })}
+        <Route element={<RootLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/saved" element={<Saved />} />
+          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/update-post/:id" element={<EditPost />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/profile/:id/*" element={<Profile />} />
+          <Route path="/update-profile/:id" element={<UpdateProfile />} />
         </Route>
       </Routes>
 
@@ -37,7 +39,6 @@ const App = () => {
     </main>
   )
 }
- vsvjsjv
 export default App
 
 /* nesting routing wraps the child components inside the parent component (eg: signup and signin in authlayout)
@@ -46,4 +47,3 @@ index element = {<Home/>} => when the url matches the home url (url = '/'), the 
 
 rendering should be done using outlet in the code of the component to specify the position of the cop
  */
-hbhjb
