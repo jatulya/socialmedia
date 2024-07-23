@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
+import FileUploader from "../shared/FileUploader"
 
 const formSchema = z.object({
   caption: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+    message: "Caption must be at least 2 characters.",
   }),
 })
  
@@ -26,7 +27,6 @@ const PostForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       caption: "",
-      file: [],
     },
   })
  
@@ -37,7 +37,6 @@ const PostForm = () => {
     console.log(values)
   }
   return (
-    <div>
       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}        
       className="flex flex-col gap-9 w-full  max-w-5xl">
@@ -55,25 +54,60 @@ const PostForm = () => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">File</FormLabel>
+              <FormLabel className="shad-form_label">Add Photos</FormLabel>
               <FormControl>
-                <Fileu placeholder="caption" 
-                className="shad-textarea custom-scrollbar"{...field} />
+                <FileUploader />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
-        
-        <Button type="submit">Submit</Button>
+
+        <FormField
+          control={form.control}
+          name="location"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="shad-form_label">Add Location</FormLabel>
+              <FormControl>
+                <Input type="text" className="shad-input" />
+              </FormControl>
+              <FormMessage className="shad-form_message" />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="tags"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="shad-form_label">Add Tags (separated by " , ")</FormLabel>
+              <FormControl>
+                <Input type="text"
+                className="shad-input" 
+                placeholder="art, health, divine"/>
+              </FormControl>
+              <FormMessage className="shad-form_message" />
+            </FormItem>
+          )}
+        />
+        <div className="flex gap-4 items-center justify-end">
+        <Button
+            type="button"
+            className="shad-button_dark_4" >
+            Cancel
+          </Button>
+          <Button className="shad-button_primary whitespace-nowrap" type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
-    </div>
   )
 }
 

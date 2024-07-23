@@ -84,12 +84,19 @@ Frontend
    In topbar, create button for signout. create signout functions in queries and appwrite
 21. Wrap components in rootlayout and create profile, updateposts, explore etc in _root/pages. import it as {default as Name } in index.ts so that all the pages can be imported in a single line
 22. Create posts
-render createpost.tsx component and render postform component in it
-create postform component and render postform.tsx component in it
-    Postform.tsx
-    rafce
-    from shadcn, follow the basic steps to implement a form
-    change the input form to textarea by npx shadcn-ui@latest add textarea
+   render createpost.tsx component and render postform component in it
+   Postform.tsx
+      rafce
+      from shadcn, follow the basic steps to implement a form
+      change the input form to textarea by npx shadcn-ui@latest add textarea
+      add input area for caption, tags, adding file (FileUploader component rendered here as FormControl), location and two buttons -> cancel and submit
+
+   FileUploader.tsx
+      npm install react-dropzone
+      refer documentation and copy basic stuff
+   
+
+
 
 Relationship between collections
 --------------------------------
