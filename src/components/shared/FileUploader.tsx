@@ -1,14 +1,23 @@
-import React, {useCallback, useState} from 'react'
-import {useDropzone} from 'react-dropzone'
+import {useCallback, useState} from 'react'
+import {FileWithPath, useDropzone} from 'react-dropzone'
 import { Button } from '../ui/button'
+import { FileUploaderProps } from '@/types/Interfaces'
 
-const FileUploader = () => {
-    const [fileUrl, setFileUrl] = useState('')
+const FileUploader = ({ fieldChange, mediaUrl} : FileUploaderProps) => {
+  
+  const [fileUrl, setFileUrl] = useState<string>('')
+  const [file, setFile] = useState<File[]>([])
 
-  const onDrop = useCallback(acceptedFiles => {
-    // Do something with the files
-  }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const onDrop = useCallback( (acceptedFiles: FileWithPath[]) => {
+    setFile(acceptedFiles)
+    fieldChange(acceptedFiles)
+    setFileUrl(URL.createObjectURL(acceptedFiles[0]))
+  }, [file])
+
+  const {getRootProps, getInputProps} = useDropzone({
+    onDrop,
+    accept: {'image/*' : ['.png', '.svg', '.jpeg','.jpg']} ,
+  })
 
   return (
     <div {...getRootProps()}       
@@ -24,7 +33,7 @@ const FileUploader = () => {
       ) : (
         <div className="file_uploader-box ">
           <img
-            src="/assets/icons/file-upload.svg"
+            src="/assets/icons/file-upload.png"
             width={96}
             height={77}
             alt="file upload"

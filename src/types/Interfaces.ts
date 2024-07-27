@@ -1,3 +1,4 @@
+import { Models } from "appwrite";
 import React from "react";
 
 export type INavLink = {
@@ -57,3 +58,25 @@ export type INavLink = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>,
     checkAuthUser: () => Promise<boolean>,
   }
+
+  export type FileUploaderProps = {
+    fieldChange: (files: File[]) => void;
+    mediaUrl: string,
+  }
+
+  export type PostFormProps = {
+    post?: Models.Document; //? => this field is optional
+    action: "Create" | "Update";
+  };
+  /*models contain many ts interfaces and types that represent the datamodels used by appwrite. these 
+  models define the structure of data returned by appwrite's endpoints
+  eg. User,
+  export type Document = {
+    $id: string;
+    $collectionId: string;
+    $databaseId: string;
+    $createdAt: string;
+    $updatedAt: string;
+    [key: string]: any; // For additional custom fields
+  }; 
+  */

@@ -90,13 +90,16 @@ Frontend
       from shadcn, follow the basic steps to implement a form
       change the input form to textarea by npx shadcn-ui@latest add textarea
       add input area for caption, tags, adding file (FileUploader component rendered here as FormControl), location and two buttons -> cancel and submit
-
    FileUploader.tsx
       npm install react-dropzone
       refer documentation and copy basic stuff
+      create Frontend
+      create a type "FileUploaderProps" in Interfaces.tsx and import it
+      pass the fieldchange and mediaUrl as props
+      create state mgmt for file and fileurl. file usestate would be of type File[]
+      Pass parameter acceptedFiles<FilewithPath[]> to onDrop and setfile and fileurls there
    
-
-
+uxwing.com
 
 Relationship between collections
 --------------------------------
