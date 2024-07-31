@@ -24,8 +24,8 @@ const PostForm = ( {post, action} : PostFormProps ) => {
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
-      caption: post ? post?.caption : "",
-      file: [],
+      caption: post ? post?.caption : "", //optional chaining
+      file: [], //handle multiple files
       location: post ? post?.location : "",
       tags: post ? post.tags.join(',') : ""
     },
@@ -34,7 +34,8 @@ const PostForm = ( {post, action} : PostFormProps ) => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
     const newPost = await createPost({
-      ...values,
+      ...values, 
+      //Spread operator '...' unpacks the object values and pass the properties listed in it as individual arguements to the function
       userId: user.id,
     })
 

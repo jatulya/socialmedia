@@ -1,5 +1,5 @@
 import { INewPost, INewUser} from "@/types/Interfaces";
-import { ID, Query } from "appwrite";
+import { ID, ImageGravity, Query } from "appwrite";
 import { account, appwriteConfig, avatar, db, storage } from "./config";
 
 // user account stuff
@@ -105,8 +105,23 @@ export async function getFileUrl(fileId:string){
         const fileUrl = storage.getFilePreview(
             appwriteConfig.storageId,
             fileId,
-            2000, 2000, "top", 100
+            2000, 2000, ImageGravity.Top, 
+            100 
+            //gravity how img is cropped/resized when it is previewed
         )
+        return fileUrl
+    } catch(e){
+        console.log(`Error ${e} in getting file url`)
+    }
+}
+
+export async function deleteFile(fileId: string){
+    try{
+        await storage.deleteFile(appwriteConfig.storageId, fileId)
+        return {status:"ok"}
+        //{status: ok} is a user defined object with a single property named "status" whose value is "ok". it is neither a interface type nor an enum
+    }catch(e){
+        console.log(`Error ${e} in deleting file`)
     }
 }
 
@@ -115,8 +130,44 @@ export async function createPost(post :INewPost){
         const uploadedFile = await uploadFile(post.file[0])
         if (!uploadedFile) throw Error
 
-        const fileUrl = getFileUrl
+        const fileUrl = getFileUrl(uploadedFile.$id)
+
+        if (!fileUrl){
+            await deleteFile(uploadedFile.$id)
+            throw Error
+        }
+
+        const tags = post.tags?.replace(/ /g, "").split(',') || []
+        //remove whitespaces from the tags given and turn them into array. 
+        // '/ /' represents the regular expression for space and g represents globally (more than one occurances of matching expression are replaced ). if no tags are given, an empty array is returned 
+
+        const newPost = await db.createDocument(
+            appwriteConfig.dbId,
+            appwriteConfig.postsCollectionId, 
+            ID.unique(),
+            {
+                creator: post.userId,
+                imageURL: fileUrl,
+                imageID: uploadedFile.$id,
+                Tags: tags,
+                caption: post.caption,
+                location : post.location
+            }
+        )
+
+        if (!newPost){
+            await deleteFile(uploadedFile.$id)
+            throw Error
+        }
+
+        return newPost
+
     }catch(err){
-        console.log(err)
+        console.log(`Error ${err} in creating post`)
     }
 }
+
+/*
+  $id is a property of appwrite 
+  Error is a javascript object that represents any errors generated
+*/

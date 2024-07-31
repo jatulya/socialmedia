@@ -83,7 +83,7 @@ Frontend
    create a rootlayout component and wrap all the components in it
    In topbar, create button for signout. create signout functions in queries and appwrite
 21. Wrap components in rootlayout and create profile, updateposts, explore etc in _root/pages. import it as {default as Name } in index.ts so that all the pages can be imported in a single line
-22. Create posts
+22. Create posts component
    render createpost.tsx component and render postform component in it
    Postform.tsx
       rafce
@@ -99,7 +99,11 @@ Frontend
       create state mgmt for file and fileurl. file usestate would be of type File[]
       Pass parameter acceptedFiles<FilewithPath[]> to onDrop and setfile and fileurls there
    
-uxwing.com
+   Creating post function in api.ts
+      upload image (use user defined function), throw error if failed
+      get the url of the image (user defined function), if error occured - delete the uploaded image and throw error
+      create document in postcollection. if failed, delete the image and throw error
+
 
 Relationship between collections
 --------------------------------
@@ -117,3 +121,4 @@ attributes
 loader -> uiball.com
 cover -> canva
 logo -> logo.com
+icons -> freeicons.io, uxwing.com

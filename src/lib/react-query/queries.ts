@@ -8,6 +8,7 @@ export const useCreateUserAcc = () => {
         mutationFn: (user: INewUser) => createUserAcc(user)
     })
 }
+
 export const useSigninAcc = () => {
     return useMutation({
         mutationFn: (user: {
