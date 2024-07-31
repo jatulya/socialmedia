@@ -1,10 +1,8 @@
-import { INewUser} from "@/types/Interfaces";
+import { INewPost, INewUser} from "@/types/Interfaces";
 import { ID, Query } from "appwrite";
-import { account, appwriteConfig, avatar, db } from "./config";
-import { error } from "console";
+import { account, appwriteConfig, avatar, db, storage } from "./config";
 
-//toast
-
+// user account stuff
 export async function createUserAcc(user: INewUser ) {
     try{
         const newAccount = await account.create(
@@ -79,12 +77,46 @@ export async function getCurrUser() {
 }
 
 export async function signoutAcc() {
-    try{
-       
+    try{      
         const session = await account.deleteSession("current")
         console.log(`session: ${session}`)
         return session
     }catch (error){
         console.log(error)
+    }
+}
+
+//posts stuff
+export async function uploadFile(file:File) {
+    try{
+        const fileUpload = await storage.createFile(
+            appwriteConfig.storageId,
+            ID.unique(),
+            file
+        )
+        return fileUpload
+    }catch(e){
+        console.log(`error ${e} from uploading file`)
+    }
+}
+
+export async function getFileUrl(fileId:string){
+    try{
+        const fileUrl = storage.getFilePreview(
+            appwriteConfig.storageId,
+            fileId,
+            2000, 2000, "top", 100
+        )
+    }
+}
+
+export async function createPost(post :INewPost){
+    try{
+        const uploadedFile = await uploadFile(post.file[0])
+        if (!uploadedFile) throw Error
+
+        const fileUrl = getFileUrl
+    }catch(err){
+        console.log(err)
     }
 }
