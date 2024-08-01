@@ -59,11 +59,6 @@ export type INavLink = {
     checkAuthUser: () => Promise<boolean>,
   }
 
-  export type FileUploaderProps = {
-    fieldChange: (files: File[]) => void;
-    mediaUrl: string,
-  }
-
   export type PostFormProps = {
     post?: Models.Document; //? => this field is optional
     action: "Create" | "Update";

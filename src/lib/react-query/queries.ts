@@ -33,7 +33,11 @@ export const useCreatePost = () => {
     return useMutation({
         mutationFn: (post: INewPost) => createPost(post), 
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: [QUERY_KEYS.GET_RECENT_POSTS]}) //invalidates the cache and refetches the data
+            queryClient.invalidateQueries({queryKey: [QUERY_KEYS.GET_RECENT_POSTS]}) 
+            /*invalidates the cache and refetches the data => cache would be updated => 
+            when the user navigates to home page, recently added post would also be displayed, 
+            if not invalidate, refresh or cache expiration is required to see the new post
+            */
         }
     })
 }

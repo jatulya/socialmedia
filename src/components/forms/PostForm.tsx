@@ -24,7 +24,7 @@ const PostForm = ( {post, action} : PostFormProps ) => {
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
-      caption: post ? post?.caption : "", //optional chaining
+      caption: post?.caption || "", //optional chaining
       file: [], //handle multiple files
       location: post ? post?.location : "",
       tags: post ? post.tags.join(',') : ""
@@ -47,7 +47,7 @@ const PostForm = ( {post, action} : PostFormProps ) => {
   }
 
   return (
-      <Form {...form}>
+    <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}        
       className="flex flex-col gap-9 w-full  max-w-5xl">
         <FormField
@@ -72,9 +72,8 @@ const PostForm = ( {post, action} : PostFormProps ) => {
             <FormItem>
               <FormLabel className="shad-form_label">Add Photos</FormLabel>
               <FormControl>
-                <FileUploader 
-                  fieldChange ={field.onChange}
-                  mediaUrl = {post?.imageUrl}/>
+                <FileUploader fieldChange ={field.onChange}
+                />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
@@ -132,4 +131,5 @@ export default PostForm
    spreads all the properties of the field object onto the Input component 
    eg: field = { name:"username", onChange: handlechange} 
    so the Input component will have the properties name and onChange
+   the prop "post" is optional, thus we are using optional chaining (post?post?.caption)
  */

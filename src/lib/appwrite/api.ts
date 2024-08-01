@@ -102,7 +102,7 @@ export async function uploadFile(file:File) {
 
 export async function getFileUrl(fileId:string){
     try{
-        const fileUrl = storage.getFilePreview(
+        const fileUrl = await storage.getFilePreview(
             appwriteConfig.storageId,
             fileId,
             2000, 2000, ImageGravity.Top, 
@@ -130,7 +130,8 @@ export async function createPost(post :INewPost){
         const uploadedFile = await uploadFile(post.file[0])
         if (!uploadedFile) throw Error
 
-        const fileUrl = getFileUrl(uploadedFile.$id)
+        const fileUrl = await getFileUrl(uploadedFile.$id)
+        console.log(`Url: ${fileUrl}`)
 
         if (!fileUrl){
             await deleteFile(uploadedFile.$id)
@@ -151,7 +152,7 @@ export async function createPost(post :INewPost){
                 imageID: uploadedFile.$id,
                 Tags: tags,
                 caption: post.caption,
-                location : post.location
+                Location : post.location
             }
         )
 

@@ -1,9 +1,8 @@
 import {useCallback, useState} from 'react'
 import {FileWithPath, useDropzone} from 'react-dropzone'
 import { Button } from '../ui/button'
-import { FileUploaderProps } from '@/types/Interfaces'
 
-const FileUploader = ({ fieldChange, mediaUrl} : FileUploaderProps) => {
+const FileUploader = ({ fieldChange} : {fieldChange: (file: File[])=>void} ) => {
   
   const [fileUrl, setFileUrl] = useState<string>('')
   const [file, setFile] = useState<File[]>([])
@@ -54,3 +53,9 @@ const FileUploader = ({ fieldChange, mediaUrl} : FileUploaderProps) => {
 }
 
 export default FileUploader;
+
+/*
+const FileUploader = ({ fieldChange }: { fieldChange: (file: File[]) => void }) => {
+here, type should also be given in {} because type annotation should be passed as an object
+
+*/
