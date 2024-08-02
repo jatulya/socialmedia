@@ -86,6 +86,21 @@ export async function signoutAcc() {
     }
 }
 
+export async function getUsers() {
+    const queries= [Query.orderDesc("$createdAt"), Query.limit(10)] //contains query objects 
+
+    try{
+        const users = await db.listDocuments(
+            appwriteConfig.dbId, appwriteConfig.usersCollectionId, queries
+        )
+        if (!users) throw Error
+        return users
+    } catch(error){
+        console.log(`Error ${error}`)
+    
+    }
+    
+}
 //posts stuff
 export async function uploadFile(file:File) {
     try{
@@ -165,6 +180,22 @@ export async function createPost(post :INewPost){
 
     }catch(err){
         console.log(`Error ${err} in creating post`)
+    }
+}
+
+export async function getRecentPosts(){
+    try{
+        const posts = await db.listDocuments(
+            appwriteConfig.dbId,
+            appwriteConfig.postsCollectionId,
+            [Query.orderDesc("$createdAt"), Query.limit(10)]
+        )
+        
+        if (!posts) throw Error
+
+        return posts
+    }catch(error){
+        console.log(`Error ${error} from getRecentPosts`)
     }
 }
 

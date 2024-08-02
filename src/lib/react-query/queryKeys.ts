@@ -3,7 +3,7 @@ export enum QUERY_KEYS {
     CREATE_USER_ACCOUNT = "createUserAccount",
   
     // USER KEYS
-    GET_CURRENT_USER = "getCurrentUser",
+    GET_CURRENT_USER = "getCurrUser",
     GET_USERS = "getUsers",
     GET_USER_BY_ID = "getUserById",
   
@@ -20,5 +20,6 @@ export enum QUERY_KEYS {
   }
 
 /*this is used for easy access for caching. All these represent cache keys
-enums can also be used as enum keys{ Red, Yellow, Blue } or given explicit values to them. Enum defines a set of named values 
+enums can also be used as enum keys{ Red, Yellow, Blue } or given explicit values to them. 
+Enum defines a set of named values 
 */
