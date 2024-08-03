@@ -104,6 +104,12 @@ Frontend
       get the url of the image (user defined function), if error occured - delete the uploaded image and throw error
       create document in postcollection. if failed, delete the image and throw error
 
+23. Home
+   do html Frontend
+   create queries useGetRecentPosts and useGetUsers in queries.ts-
+   create their corresponding api functions in api.ts
+   Create usercard and postcard components in shared folder
+   add usercard and postcard components in Home passing mapped user from useGetUsers and post from useGetRecentPosts as props for the components
 
 Relationship between collections
 --------------------------------

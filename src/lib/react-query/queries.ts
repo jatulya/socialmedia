@@ -25,6 +25,20 @@ export const useSignoutAcc = () => {
     })
 }
 
+export async function useGetCurrUser () {
+    return useQuery({
+        queryKey: [QUERY_KEYS.GET_CURRENT_USER],
+        queryFn: getCurrUser
+    })
+}
+
+export const useGetUsers = () => {
+    return useQuery({
+        queryKey: [QUERY_KEYS.GET_USERS],
+        queryFn: getUsers
+    })
+}
+
 export const useCreatePost = () => {
     const queryClient = useQueryClient() //fetches current instance of queryclient with the details such as status (data) and fetchstatus 
     return useMutation({
@@ -46,18 +60,7 @@ export const useGetRecentPosts = () =>{
     })
 }
 
-export async function useGetCurrUser () {
-    return useQuery({
-        queryKey: [QUERY_KEYS.GET_CURRENT_USER],
-        queryFn: getCurrUser
-    })
-}
-export const useGetUsers = () => {
-    return useQuery({
-        queryKey: [QUERY_KEYS.GET_USERS],
-        queryFn: getUsers
-    })
-}
+
 
 /*
 useQuery --> fetches data from the server and caches the response

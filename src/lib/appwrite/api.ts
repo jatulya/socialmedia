@@ -69,6 +69,7 @@ export async function getCurrUser() {
             appwriteConfig.usersCollectionId,
             [Query.equal('accountID', currAccount.$id)]
         )
+        
         if (!users) throw Error
         return users.documents[0]
     } catch(error){
@@ -96,8 +97,7 @@ export async function getUsers() {
         if (!users) throw Error
         return users
     } catch(error){
-        console.log(`Error ${error}`)
-    
+        console.log(`Error ${error}`)  
     }
     
 }
