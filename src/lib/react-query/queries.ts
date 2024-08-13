@@ -1,5 +1,5 @@
 import { INewPost, INewUser } from '@/types/Interfaces'
-import {useInfiniteQuery, useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
 import { createUserAcc, signinAcc, signoutAcc, createPost, getRecentPosts, getCurrUser, getUsers } from '../appwrite/api'
 import { QUERY_KEYS } from './queryKeys'
 

@@ -1,17 +1,14 @@
-import { AuthContext } from '@/context/AuthContext'
 import { Models } from 'appwrite'
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 const Postcard = ({post} : {post : Models.Document}) => {
-    const {user} = useContext(AuthContext)
 
     if (!post.creator) return;
 
   return (
-    <div>
+    <div >
       <Link to={`/profile/${post.creator.$id}`}>
-        <img src={ post.creator?.imageUrl ||
+        <img src={ post.creator?.imageURL ||
                 "/assets/icons/profile.png"
               }
               alt="creator"
@@ -19,7 +16,7 @@ const Postcard = ({post} : {post : Models.Document}) => {
             />
       </Link> 
       <p className="base-medium lg:body-bold text-light-1">
-              {post.creator.name}
+              {post.creator?.name}
       </p>
     </div>
   )

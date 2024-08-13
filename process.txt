@@ -111,6 +111,7 @@ Frontend
    Create usercard and postcard components in shared folder
    add usercard and postcard components in Home passing mapped user from useGetUsers and post from useGetRecentPosts as props for the components
 
+create re-export files in ui folder and shared folder to reduce the number of import stmts in files
 Relationship between collections
 --------------------------------
 - Users -> Posts :
