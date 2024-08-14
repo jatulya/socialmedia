@@ -1,6 +1,7 @@
 Frontend
 --------
 1. Create an account in appwrite
+
 2. npm create vite@latest ./ 
    click on react and typescript in the drop down list that would be shown. -> creates a vite+react app at current repository 
    npm install
@@ -8,6 +9,7 @@ Frontend
 3. move the assets from src to public
 4. delete unnecessary files
 5. create a new file in src folder named App.tsx
+
 6.  Setting the tailwind
    create a new file named globals.css and add tailwind directives there
    configure the tailwind path
@@ -17,11 +19,13 @@ Frontend
    close the server
    run again
    add the necessary class names to get the css styling
+
 7. Setting the routes
    npm install react-router-dom
    import {BrowserRouter} from react-router-dom in main.tsx
    wrap the app with BrowserRouter in main
    in app, import {routes, route} and add routes
+
 8. folder structure
    create _auth and _root in src
    in _auth, another folder forms that contains signin and signup forms
@@ -30,12 +34,15 @@ Frontend
    since there would be many pages to display, rather than importing each one of them in the app page , we create a file in pages name index.ts and write code as export {default as Home} from './Home' along with other pages to import it in a single line.
    in app.tsx it would look like this import {Home, page1, page2
    } from './_root/pages'
+
 9. Shad cn ui 
    follow their documentation
    npx various components and use accordingly
+
 10. set up AuthLayout
    import outlet and navigate from dom
    set up the outlet code at AuthLayout
+
 11. creating form
    follow shadcn documentation
    npx shadcn input
@@ -46,9 +53,11 @@ Frontend
    make necessary changes in form
    take custom loader from uiball.com (do the installations and stuff)
    we create a folder named Shared to keep the components that will be shared by more than one components
+
 12. .env
    create .enc.local in main folder to keep secret keys outside src
    inside src, create a file named vite-env.d.ts and add /// <reference types= "vite/client" />
+
 13. authentication
    npm install appwrite
    create src - types - interfaces.ts and create the interfaces there
@@ -56,13 +65,16 @@ Frontend
    import necessary stuff from appwrite and configure the project
    create lib - appwrite -api.ts
    define functions for account creation and others using interfaces.ts types and appwrite functionalities (read documentation of appwrite)
+
 14. create collections and buckets in appwrite and    get their ids
    add the attributes and Relationship between them
    create index for posts
 15. update the signup functions so that they add info about user to the db
+
 16. Toast from shadcn
    add the import toaster to the root component (here, app.tsx)
    import use-toast wherever required
+
 17. react - query : used for data fetching, caching etc
    npm install react-query
    lib -> react-query -> queries.ts
@@ -70,19 +82,23 @@ Frontend
    import necessary stuff from react-query
    create createAcc, signinAcc mutations (for sigin, siginAcc has to be defined and imported from api.ts)
    use them accordingly in signup.tsx
+
 18. Context
    src - context - AuthContext.tsx
    create initial_user and initial_state values
    create functions to update the states
    wrap children in AuthContext.provider
+
 19. authentication of users
    create a fnctn for checking authentication of users (in AuthContext) by calling getcurruser (function thatshould be defined in api.ts - get current user account from appwriteauth, get all documents from user collections with the id same as current user and then return the first [0])
    we can destructure the current user taken from getcurruser in checkauth user, but it can cause type problem
    once user is assigned, setisauthenticated to true, else fals
+
 20. rootlayout
    create a rootlayout component and wrap all the components in it
    In topbar, create button for signout. create signout functions in queries and appwrite
 21. Wrap components in rootlayout and create profile, updateposts, explore etc in _root/pages. import it as {default as Name } in index.ts so that all the pages can be imported in a single line
+
 22. Create posts component
    render createpost.tsx component and render postform component in it
    Postform.tsx
@@ -110,6 +126,7 @@ Frontend
    create their corresponding api functions in api.ts
    Create usercard and postcard components in shared folder
    add usercard and postcard components in Home passing mapped user from useGetUsers and post from useGetRecentPosts as props for the components
+   in utils.tsx, add functions for getting time the post was posted relative to current time
 
 create re-export files in ui folder and shared folder to reduce the number of import stmts in files
 Relationship between collections

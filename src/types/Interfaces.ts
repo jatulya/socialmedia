@@ -63,6 +63,12 @@ export type INavLink = {
     post?: Models.Document; //? => this field is optional
     action: "Create" | "Update";
   };
+
+  export type PostStatsProps = {
+    post: Models.Document;
+    userId: string;
+  }
+  
   /*models contain many ts interfaces and types that represent the datamodels used by appwrite. these 
   models define the structure of data returned by appwrite's endpoints
   eg. User,
