@@ -53,11 +53,6 @@ const Postcard = ({post} : {post : Models.Document}) => {
         </div>
   
         <Link to={`/posts/${post.$id}`}>
-          <img
-            src={post.imageURL || "/assets/icons/profile.png"}
-            alt="post image"
-            className="post-card_img"
-          />
           <div className="small-medium lg:base-medium py-5">
             <p>{post.caption}</p>
             <ul className="flex gap-1 mt-2">
@@ -68,6 +63,12 @@ const Postcard = ({post} : {post : Models.Document}) => {
               ))}
             </ul>
           </div>
+          <img
+            src={post.imageURL || "/assets/icons/profile.png"}
+            alt="post image"
+            className="post-card_img"
+          />
+          
   
         </Link>
   

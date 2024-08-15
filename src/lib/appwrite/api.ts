@@ -199,6 +199,52 @@ export async function getRecentPosts(){
     }
 }
 
+export async function likePost(postId:string, likesArray: string[]){
+    try{
+        const addlike = await db.updateDocument(
+            appwriteConfig.dbId, 
+            appwriteConfig.postsCollectionId,
+            postId, 
+            { likes : likesArray, }
+        )
+
+        if (!addlike) throw Error;
+        return addlike
+    }catch(e){
+        console.log(`${e} from when likes couldnt be added`)
+    }
+}
+
+export async function savePost(userId: string, postId:string){
+    try{
+        const savepost = await db.createDocument(
+            appwriteConfig.dbId, 
+            appwriteConfig.savessCollectionId,
+            ID.unique(), 
+            { user: userId, post: postId }
+        )
+
+        if (!savepost) throw Error
+        return savepost
+    }catch(e){
+        console.log(`${e} from when post couldnt be saved`)
+    }
+}
+
+export async function unsavePost( savedRecId:string) {
+    try{
+        const unsavepost = await db.deleteDocument(
+            appwriteConfig.dbId,
+            appwriteConfig.savessCollectionId,
+            savedRecId
+        )
+        if (!unsavepost) throw Error
+        return {status : "Ok"}
+    }catch(e){
+        console.log(`${e} from when post couldn't be unsaved`)
+    }
+    
+}
 /*
   $id is a property of appwrite 
   Error is a javascript object that represents any errors generated

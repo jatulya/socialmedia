@@ -51,8 +51,8 @@ const PostStats = ({post, userId} : PostStatsProps) => {
         <img
           src={`${
             checkIsLiked(likes, userId)
-              ? "/assets/icons/liked.svg"
-              : "/assets/icons/like.svg"
+              ? "/assets/icons/liked.png"
+              : "/assets/icons/like.png"
           }`}
           alt="like"
           width={20}
@@ -65,7 +65,7 @@ const PostStats = ({post, userId} : PostStatsProps) => {
 
       <div className="flex gap-2">
         <img
-          src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}
+          src={isSaved ? "/assets/icons/saved.png" : "/assets/icons/save.png"}
           alt="share"
           width={20}
           height={20}
