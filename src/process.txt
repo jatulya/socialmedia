@@ -121,14 +121,19 @@ Frontend
       create document in postcollection. if failed, delete the image and throw error
 
 23. Home
-   do html Frontend
+
    create queries useGetRecentPosts and useGetUsers in queries.ts-
    create their corresponding api functions in api.ts
    Create usercard and postcard components in shared folder
    add usercard and postcard components in Home passing mapped user from useGetUsers and post from useGetRecentPosts as props for the components
    in utils.tsx, add functions for getting time the post was posted relative to current time
 
+   poststats component
+
+
+
 create re-export files in ui folder and shared folder to reduce the number of import stmts in files
+
 Relationship between collections
 --------------------------------
 - Users -> Posts :

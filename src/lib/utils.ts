@@ -60,7 +60,9 @@ export const multiFormatDateString = (timestamp: string = "") : string => {
   }
 }
 
-
+export const checkIsLiked = (likedlist: string[], userId: string) => {
+  return likedlist.includes(userId)
+}
 /*
   (parametername: datatype1 = defaultvalue) => datatype2  -> this implies the function has optional parameter of a datatype1. if no value is given, the default value is passed as parameter, datatype2 is expected to be returned by the function is a string
 
