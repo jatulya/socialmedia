@@ -215,6 +215,19 @@ export async function likePost(postId:string, likesArray: string[]){
     }
 }
 
+export async function getPostsById(postId? : string){
+    if (!postId) throw new Error('No post ID')
+    
+    try{
+        const post = await db.getDocument(appwriteConfig.dbId, 
+            appwriteConfig.postsCollectionId, postId)
+        if (!post) throw new Error('Did not get any doc from the database with the given postID')
+        
+        return post;
+    }catch(e){
+        console.log(`${e} from getPostsById`)
+    }
+}
 export async function savePost(userId: string, postId:string){
     try{
         const savepost = await db.createDocument(
@@ -245,6 +258,8 @@ export async function unsavePost( savedRecId:string) {
     }
     
 }
+
+
 /*
   $id is a property of appwrite 
   Error is a javascript object that represents any errors generated

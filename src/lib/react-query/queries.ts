@@ -60,6 +60,10 @@ export const useGetRecentPosts = () =>{
     })
 }
 
+export const useGetPostById = (postId?:string)
+export const useLikePost = () => {
+    
+}
 
 
 /*
