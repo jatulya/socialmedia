@@ -8,6 +8,7 @@ import PostStats from './PostStats';
 const Postcard = ({post} : {post : Models.Document}) => {
   const {user} = useContext(AuthContext)
     if (!post.creator) return;
+    console.log(post.creator)
 
     return (
       <div className="post-card">
@@ -68,8 +69,7 @@ const Postcard = ({post} : {post : Models.Document}) => {
             alt="post image"
             className="post-card_img"
           />
-          
-  
+        
         </Link>
   
         <PostStats post={post} userId={user.id} />

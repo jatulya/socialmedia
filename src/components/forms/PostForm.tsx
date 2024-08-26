@@ -5,25 +5,21 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
-import FileUploader from "../shared/FileUploader"
 import { PostValidation } from "@/lib/validation/schema"
 import { PostFormProps } from "@/types/Interfaces"
-import { useCreatePost } from "@/lib/react-query/queries"
+import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries"
 import { useContext } from "react"
 import { AuthContext } from "@/context/AuthContext"
-import {useToast } from "../ui/use-toast"
+import { useToast } from "../ui/use-toast"
 import { useNavigate } from "react-router-dom"
+import { Loader, FileUploader } from "../shared"
  
 const PostForm = ( {post, action} : PostFormProps ) => {
-  if (action=="Create"){
-    console.log("Into the postfomr")
-  }
+ 
   const nav = useNavigate()
   const {user} = useContext(AuthContext)
   const {toast} = useToast()
-  
-  const {mutateAsync: createPost} = useCreatePost()
-  
+    
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -33,17 +29,36 @@ const PostForm = ( {post, action} : PostFormProps ) => {
       tags: post ? post.tags.join(',') : ""
     },
   })
+
+  const {mutateAsync: createPost, isPending: isLoadingCreate} = useCreatePost()
+  const {mutateAsync: updatePost, isPending: isLoadingUpdate} = useUpdatePost()
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof PostValidation>) {
+    
+    if (post && action === "Update"){
+      const updatedPost = await updatePost({
+        ...values, 
+        postId : post.$id,
+        imageId: post.imageID,
+        imageUrl: post.imageURL,
+      })
+
+      if (!updatedPost){
+        toast({
+          title: 'Update post failed. Try Again later.',
+        })
+      }
+      return nav(`/posts/${post.$id}`)
+    }
+    
     const newPost = await createPost({
       ...values, 
-      //Spread operator '...' unpacks the object values and pass the properties listed in it as individual arguements to the function
       userId: user.id,
     })
 
     if (!newPost){
-      toast({ title : 'Please try again later'})
+      toast({ title : 'Creating post unsuccessful. Please try again later'})
     }
     nav('/')
     console.log(values)
@@ -115,12 +130,20 @@ const PostForm = ( {post, action} : PostFormProps ) => {
         />
 
         <div className="flex gap-4 items-center justify-end">
-        <Button
+          <Button
             type="button"
-            className="shad-button_dark_4" >
+            className="shad-button_dark_4"
+            onClick={() => nav(-1)}>
             Cancel
           </Button>
-          <Button className="shad-button_primary whitespace-nowrap" type="submit">Submit</Button>
+          
+          <Button
+            type="submit"
+            className="shad-button_primary whitespace-nowrap"
+            disabled={isLoadingCreate || isLoadingUpdate}>
+            {(isLoadingCreate || isLoadingUpdate) && <Loader />}
+            {action} Post
+          </Button>
         </div>
       </form>
     </Form>

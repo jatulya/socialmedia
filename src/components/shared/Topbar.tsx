@@ -10,8 +10,9 @@ const Topbar = () => {
     const { mutate:signout, isSuccess } = useSignoutAcc()
     console.log(isSuccess)
     const nav = useNavigate()
+    
     useEffect(() => {
-        if (isSuccess) {
+        if (isSuccess) {      
             nav('/sigin')
         }
     }, [isSuccess])

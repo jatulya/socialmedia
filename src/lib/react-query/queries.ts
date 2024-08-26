@@ -1,6 +1,6 @@
-import { INewPost, INewUser } from '@/types/Interfaces'
+import { INewPost, INewUser, IUpdatePost } from '@/types/Interfaces'
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
-import { createUserAcc, signinAcc, signoutAcc, createPost, getRecentPosts, getCurrUser, getUsers, getPostById, likePost, savePost, unsavePost } from '../appwrite/api'
+import { createUserAcc, signinAcc, signoutAcc, createPost, getRecentPosts, getCurrUser, getUsers, getPostById, likePost, savePost, unsavePost, updatePost } from '../appwrite/api'
 import { QUERY_KEYS } from './queryKeys'
 
 export const useCreateUserAcc = () => {
@@ -40,6 +40,7 @@ export const useGetUsers = () => {
 }
 
 //posts stuff
+  //create post
 export const useCreatePost = () => {
     const queryClient = useQueryClient() //fetches current instance of queryclient with the details such as status (data) and fetchstatus 
     return useMutation({
@@ -53,7 +54,19 @@ export const useCreatePost = () => {
         }
     })
 }
-
+  //update post
+export const useUpdatePost = () => {
+    const queryClient = useQueryClient() 
+    return useMutation({
+        mutationFn: (post: IUpdatePost) => updatePost(post), 
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: [QUERY_KEYS.GET_RECENT_POSTS]})
+            queryClient.invalidateQueries({queryKey: [QUERY_KEYS.GET_POSTS]})
+            queryClient.invalidateQueries({queryKey: [QUERY_KEYS.GET_CURRENT_USER]})
+        }
+    })
+}
+  //fetch posts
 export const useGetRecentPosts = () =>{
     return useQuery({
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS], //querykey expects an array
@@ -68,7 +81,7 @@ export const useGetPostById = (postId?: string) => {
         enabled: !!postId, //since postId is optional, enabled make sure that query function is called only when postId is provided
     })
 }
-
+ //like post
 export const useLikePost = () => {
     const queryClient = useQueryClient()
     return useMutation({
@@ -87,7 +100,7 @@ export const useLikePost = () => {
             }
     })
 }
-
+ //save and unsave posts
 export const useSavePost = () => {
     const queryClient = useQueryClient()
     return useMutation({

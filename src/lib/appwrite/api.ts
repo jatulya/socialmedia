@@ -1,4 +1,4 @@
-import { INewPost, INewUser} from "@/types/Interfaces";
+import { INewPost, INewUser, IUpdatePost} from "@/types/Interfaces";
 import { ID, ImageGravity, Query } from "appwrite";
 import { account, appwriteConfig, avatar, db, storage } from "./config";
 
@@ -184,7 +184,56 @@ export async function createPost(post :INewPost){
     }
 }
 
- //other post stuff
+  //updating post
+export async function updatePost(post:IUpdatePost) {
+    const hasFileToUpdate = post.file.length > 0
+
+    try{
+        let img = {
+            imgUrl: post.imageUrl,
+            imgId: post.imageId
+        }
+        //if there is a file to upload, create a new image object with the new file id
+        if (hasFileToUpdate){
+            const uploadedFile = await uploadFile(post.file[0])
+            if (!uploadedFile)
+                throw new Error('Could not upload new file')
+
+            const fileUrl = await getFileUrl(uploadedFile.$id)
+            if (!fileUrl){
+                await deleteFile(uploadedFile.$id)
+                throw new Error('Could not get the url')
+            }
+
+            img = {imgUrl: fileUrl, imgId: uploadedFile.$id}
+        }
+
+        const tags = post.tags?.replace(/ /g, "").split(',') || []    
+
+        const updatedPost = await db.updateDocument(appwriteConfig.dbId, appwriteConfig.postsCollectionId, post.postId, {
+            caption: post.caption,
+            location: post.location,
+            imageURL: img.imgUrl,
+            imageID: img.imgId,
+            tags: tags
+        })
+
+        if (!updatedPost){
+            if (hasFileToUpdate) await deleteFile(img.imgId)
+            throw new Error('Cannot update post')
+        }
+
+        //delete old files if files were updated
+        if (hasFileToUpdate) {
+            await deleteFile(post.imageId)
+        }
+
+        return updatedPost
+    }catch(e){
+        console.log(`${e} from updatepost api`)
+    }
+}
+ //fetch posts stuff
 export async function getRecentPosts(){
     try{
         const posts = await db.listDocuments(
@@ -202,8 +251,24 @@ export async function getRecentPosts(){
 }
 
 export async function getPosts(){
-    
+
 }
+
+export async function getPostById(postId? : string){
+    if (!postId) throw new Error('No post ID')
+    
+    try{
+        const post = await db.getDocument(appwriteConfig.dbId, 
+            appwriteConfig.postsCollectionId, postId)
+        if (!post) throw new Error('Did not get any doc from the database with the given postID')
+        
+        return post;
+    }catch(e){
+        console.log(`${e} from getPostsById`)
+    }
+}
+
+  //like and save posts
 export async function likePost(postId:string, likesArray: string[]){
     try{
         const addlike = await db.updateDocument(
@@ -220,19 +285,6 @@ export async function likePost(postId:string, likesArray: string[]){
     }
 }
 
-export async function getPostById(postId? : string){
-    if (!postId) throw new Error('No post ID')
-    
-    try{
-        const post = await db.getDocument(appwriteConfig.dbId, 
-            appwriteConfig.postsCollectionId, postId)
-        if (!post) throw new Error('Did not get any doc from the database with the given postID')
-        
-        return post;
-    }catch(e){
-        console.log(`${e} from getPostsById`)
-    }
-}
 export async function savePost(userId: string, postId:string){
     try{
         const savepost = await db.createDocument(
