@@ -101,6 +101,16 @@ export async function getUsers() {
     }
     
 }
+
+export async function getUserById(id: string) {
+    try{
+        const user = await db.getDocument(appwriteConfig.dbId, appwriteConfig.usersCollectionId, id)
+        if (!user) throw new Error('Did not get the user')
+        return user
+    }catch(e){
+        console.log(`Error ${e} from getUserById`)
+    }
+}
 //posts stuff
   //creating posts
 export async function uploadFile(file:File) {

@@ -6,7 +6,7 @@ const Usercard = ({user} : {user : Models.Document}) => {
   return (
     <Link to={`/profile/${user.$id}`} className="user-card">
       <img
-        src={user.imageURL || "/assets/icons/profile-placeholder.svg"}
+        src={user.imageURL || "/assets/icons/profile.png"}
         alt="creator"
         className="rounded-full w-14 h-14"
       />

@@ -68,6 +68,17 @@ export type INavLink = {
     post: Models.Document;
     userId: string;
   }
+
+  export type GridPostProps = {
+    posts: Models.Document[];
+    showUser?: boolean;
+    showStats?: boolean,
+  }
+
+  export type StabBlockProps = {
+    value: string | number;
+    label: string;
+  }
   
   /*models contain many ts interfaces and types that represent the datamodels used by appwrite. these 
   models define the structure of data returned by appwrite's endpoints
