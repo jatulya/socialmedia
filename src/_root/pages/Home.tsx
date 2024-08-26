@@ -1,5 +1,4 @@
-import {Loader, PostCard, UserCard
-} from "@/components/shared";
+import {Loader, PostCard, UserCard } from "@/components/shared";
 
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 import { Models } from "appwrite";

@@ -15,11 +15,14 @@ import {useToast } from "../ui/use-toast"
 import { useNavigate } from "react-router-dom"
  
 const PostForm = ( {post, action} : PostFormProps ) => {
+  if (action=="Create"){
+    console.log("Into the postfomr")
+  }
   const nav = useNavigate()
   const {user} = useContext(AuthContext)
   const {toast} = useToast()
   
-  const {mutateAsync: createPost, isPending: isLoadingCreate} = useCreatePost()
+  const {mutateAsync: createPost} = useCreatePost()
   
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),

@@ -129,6 +129,9 @@ Frontend
    in utils.tsx, add functions for getting time the post was posted relative to current time
 
    poststats component
+   create poststats component in shared folder
+   this component is for managing likes, saves, dislikes and unsaves
+   we create mutation functions and api functions for liking (same as unliking), saving and unsaving posts. These would be called by clicking on the respective icons
 
 
 

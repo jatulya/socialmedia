@@ -102,6 +102,7 @@ export async function getUsers() {
     
 }
 //posts stuff
+  //creating posts
 export async function uploadFile(file:File) {
     try{
         const fileUpload = await storage.createFile(
@@ -183,6 +184,7 @@ export async function createPost(post :INewPost){
     }
 }
 
+ //other post stuff
 export async function getRecentPosts(){
     try{
         const posts = await db.listDocuments(
@@ -199,6 +201,9 @@ export async function getRecentPosts(){
     }
 }
 
+export async function getPosts(){
+    
+}
 export async function likePost(postId:string, likesArray: string[]){
     try{
         const addlike = await db.updateDocument(
@@ -208,14 +213,14 @@ export async function likePost(postId:string, likesArray: string[]){
             { likes : likesArray, }
         )
 
-        if (!addlike) throw Error;
+        if (!addlike) throw new Error('likes cannot be added');
         return addlike
     }catch(e){
-        console.log(`${e} from when likes couldnt be added`)
+        console.log(`${e} from likePost`)
     }
 }
 
-export async function getPostsById(postId? : string){
+export async function getPostById(postId? : string){
     if (!postId) throw new Error('No post ID')
     
     try{

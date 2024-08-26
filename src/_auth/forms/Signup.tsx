@@ -19,12 +19,12 @@ import { useContext } from "react"
 const Signup = () => {
   const { toast } = useToast()
   const nav = useNavigate()
-  const {checkAuthUser, isLoading: isUserLoading} = useContext(AuthContext)
+  const {checkAuthUser} = useContext(AuthContext)
 
   const {mutateAsync: createUserAcc, isPending: isCreatingUser} = useCreateUserAcc()
   //mutateAsync -> function returned by the account mutation function that triggers the mutation which is renamed to createUserAcc(this createU.. is just the same fnc name as the one in api, but in the queries we call this fnc)
 
-  const {mutateAsync: signInAcc, isPending: isSigningIn} = useSigninAcc()
+  const {mutateAsync: signInAcc} = useSigninAcc()
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof SignupValidation>>({
